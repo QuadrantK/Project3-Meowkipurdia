@@ -1,25 +1,63 @@
-import logo from './logo.svg';
+// App.js
+
+/*
+
+Pseudo Code for Project 3 - Solo React App - Meowkipurdia
+
+My app Meowkipurdia will be built for users who are interested in getting a cat. The app serves to provide and function as an easy to access/use tool for the use to collect information about different breeds of cats. The information will becoming from https://api.thecatapi.com/v1/. The api appears to have proper documentation.  I will use MAP to populate a dropdown list of each cat breed. The use will select a cat breed from the dropdown and the app will display on the page the following:
+
+- Name of the Cat Breed
+- An Image of the Cat Breed
+- A block of text with a description of characteristic of the selected breed.
+
+I will access the data using an Axios call and embed the API in the Axios call header to make it more secure. 
+
+I will need to write methods/functions for the following. 
+- Axios call and resulting  data (cat title, pic and info) to make it functional.
+    - Make the call in useEffect to avoid a loop of data requests.
+- Populate the dropdown with MAP. 
+- Displaying the requested info.
+- An event lister for when the user makes their selection
+
+Stretch Goals: Use data in available in API that displays cat charaistics on a scale from 1-5 (Intelligence, affection, child friendliness.)
+Stretch Goals: Allow the user to make a list of favorite cat breeds using Fire Base.
+*/
+
 import './App.css';
+import Header from './Header';
+import Footer from './Footer';
+import axios from "axios";
+import { useEffect, useState, Component } from 'react';
 
 function App() {
+  useEffect(() => {
+ 
+    axios({
+      method: "GET",
+      url: 'https://api.thecatapi.com/v1/breeds?attach_breed=0',
+      dataResponse: "json",
+      headers: {
+       'x-api-key': 'ed7e185c-1684-4408-938a-98f68dadc5c5',
+       },
+    }).then((response) => {
+      console.log(response);
+    });
+  }, []);
+  
+  
+  
+  
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+
+        <p>PURRRRLOLZ</p>
+
+      <Footer />
     </div>
   );
 }
 
 export default App;
+
