@@ -23,41 +23,67 @@ Stretch Goals: Use data in available in API that displays cat charaistics on a s
 Stretch Goals: Allow the user to make a list of favorite cat breeds using Fire Base.
 */
 
+// My modules
+import { useEffect, useState, Component, Fragment } from 'react';
+import axios from "axios";
+
+// My styling
+
 import './App.css';
+
+// My components
 import Header from './Header';
 import Footer from './Footer';
-import axios from "axios";
-import { useEffect, useState, Component } from 'react';
 
-function App() {
+const App = () => {
+  const [ catName, setCatName ] = useState([])
+  const [ catPicUrl, setCatPicUrl ] = useState([])
+  const [ catText, setCatText ] = useState([])
+
+
   useEffect(() => {
- 
+    // performing the network request
     axios({
+      url: "https://api.thecatapi.com/v1/breeds?attach_breed=0",
       method: "GET",
-      url: 'https://api.thecatapi.com/v1/breeds?attach_breed=0',
       dataResponse: "json",
-      headers: {
-       'x-api-key': 'ed7e185c-1684-4408-938a-98f68dadc5c5',
-       },
-    }).then((response) => {
-      console.log(response);
-    });
-  }, []);
-  
-  
-  
-  
-  
+          headers: {
+          'x-api-key': 'ed7e185c-1684-4408-938a-98f68dadc5c5',
+          },
+        }).then((response) => {
+          console.log(response);
+          const getCatName = response.data[10].name;
+          const getCatPicUrl = response.data[10].image.url;
+          const getCatText = response.data[10].description;
+          console.log(getCatName);
+
+          setCatName(getCatName);
+          setCatPicUrl (getCatPicUrl);
+          setCatText (getCatText);
+
+
+
+        }).catch((error) => {
+          console.log(error)
+        })
+      }, [])
+    
+  // Begin Return Section
+    
   return (
     <div className="App">
       <Header />
 
         <p>PURRRRLOLZ</p>
+        <p>{catName}</p>
+        <img src = {catPicUrl} alt =""></img>
+        <p>{catText}</p>
 
       <Footer />
     </div>
   );
-}
 
+  }
+ 
 export default App;
 
