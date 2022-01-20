@@ -24,7 +24,7 @@ Stretch Goals: Allow the user to make a list of favorite cat breeds using Fire B
 */
 
 // My modules
-import { useEffect, useState, Component, Fragment } from 'react';
+import { useEffect, useState} from 'react';
 import axios from "axios";
 
 // My styling
@@ -32,58 +32,56 @@ import axios from "axios";
 import './App.css';
 
 // My components
-import Header from './Header';
-import Footer from './Footer';
+import Header from './components/Header.js';
+import Footer from './components/Footer.js';
+import Dropdown from './components/Dropdown.js';
 
 const App = () => {
   const [ catName, setCatName ] = useState([])
   const [ catPicUrl, setCatPicUrl ] = useState([])
   const [ catText, setCatText ] = useState([])
+// This is the state/hook I will use to populate my dropdown menu
+  const [ allBreeds, setAllBreeds ] = useState ([])
 
 
   useEffect(() => {
     // performing the network request
     axios({
-      url: "https://api.thecatapi.com/v1/breeds?attach_breed=0",
+      url: "https://api.thecatapi.com/v1/breeds",
       method: "GET",
       dataResponse: "json",
           headers: {
           'x-api-key': 'ed7e185c-1684-4408-938a-98f68dadc5c5',
           },
+          // params:{
+          //   api_key: 'ed7e185c-1684-4408-938a-98f68dadc5c5'
+          // }
         }).then((response) => {
-          console.log(response);
-          const getCatName = response.data[10].name;
-          const getCatPicUrl = response.data[10].image.url;
-          const getCatText = response.data[10].description;
-          console.log(getCatName);
-
-          setCatName(getCatName);
-          setCatPicUrl (getCatPicUrl);
-          setCatText (getCatText);
-
-
-
-        }).catch((error) => {
+        setAllBreeds(response.data)
+          
+         }).catch((error) => {
           console.log(error)
         })
+        
+
       }, [])
-    
-  // Begin Return Section
+
+  // WORKING ON MY DROPDOWN - Begin Return Section
     
   return (
     <div className="App">
       <Header />
-
+      <Dropdown breeds={allBreeds}/>  
         <p>PURRRRLOLZ</p>
+        {/* Testing displays work fine assigned parts of the array ex: response.data[37].description for catText */}
         <p>{catName}</p>
         <img src = {catPicUrl} alt =""></img>
         <p>{catText}</p>
-
       <Footer />
     </div>
   );
 
   }
- 
+
 export default App;
 
