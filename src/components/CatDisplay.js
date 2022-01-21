@@ -1,3 +1,5 @@
+// CatDisplay.js
+
 const CatDisplay = ({catBreed} ) => {
     const {name,image,description} = catBreed;
         return(

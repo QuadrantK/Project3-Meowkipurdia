@@ -1,4 +1,4 @@
-// App.js
+// App.js - My pseudo code is available on line 3, which is collapsed. Please free review to review.
 
 /*
 
@@ -28,7 +28,6 @@ import { useEffect, useState} from 'react';
 import axios from "axios";
 
 // My styling
-
 import './App.css';
 
 // My components
@@ -45,24 +44,22 @@ const [ allBreeds, setAllBreeds ] = useState([]);
 const [apiError, setApiError] = useState(false);
 
 
-
+// performing the network request
   useEffect(() => {
-    // performing the network request
+ 
     axios({
       url: "https://api.thecatapi.com/v1/breeds",
       method: "GET",
       dataResponse: "json",
-          headers: {
-          'x-api-key': 'ed7e185c-1684-4408-938a-98f68dadc5c5',
-          },
+        headers: {
+        'x-api-key': 'ed7e185c-1684-4408-938a-98f68dadc5c5',
+        },
         }).then((response) => {
         setAllBreeds(response.data)
-          
+        
         }).catch((error) => {
           setApiError(true) 
-        })
-        
-
+        })        
       }, [])
 
 
@@ -73,32 +70,24 @@ const [apiError, setApiError] = useState(false);
       }
 
 
-  // WORKING ON MY DROPDOWN - Begin Return Section
-    
+  // Return and loading my components
   return (
     <div className="wrapper">
       <Header />
+        
         {
           apiError 
           ?<p>Sorry, please refresh and try again.</p>
           : <Dropdown breeds={allBreeds} getCatData={getCatData}/> 
         }
         
-        <CatDisplay catBreed={catBreed}/>
-
-        {/* Testing displays work fine assigned parts of the array ex: response.data[37].description for catText */}
-
-     
+      <CatDisplay catBreed={catBreed}/>
 
       <Footer />
     </div>
-
-
-
-
   );
 
-  }
+}
 
 export default App;
 
