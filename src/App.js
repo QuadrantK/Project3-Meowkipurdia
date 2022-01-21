@@ -35,13 +35,15 @@ import './App.css';
 import Header from './components/Header.js';
 import Footer from './components/Footer.js';
 import Dropdown from './components/Dropdown.js';
+import CatDisplay from './components/CatDisplay.js';
+
 
 const App = () => {
-  const [ catName, setCatName ] = useState([])
-  const [ catPicUrl, setCatPicUrl ] = useState([])
-  const [ catText, setCatText ] = useState([])
+const [catBreed, setCatBreed] = useState({});
 // This is the state/hook I will use to populate my dropdown menu
-  const [ allBreeds, setAllBreeds ] = useState ([])
+const [ allBreeds, setAllBreeds ] = useState([]);
+const [apiError, setApiError] = useState(false);
+
 
 
   useEffect(() => {
@@ -59,26 +61,44 @@ const App = () => {
         }).then((response) => {
         setAllBreeds(response.data)
           
-         }).catch((error) => {
-          console.log(error)
+        }).catch((error) => {
+          setApiError(true) 
         })
         
 
       }, [])
+
+
+      const getCatData=(e,catId) => {
+        e.preventDefault();
+        const findBreed = allBreeds.filter(breed => breed.id === catId);
+        setCatBreed(findBreed[0]);
+      }
+
 
   // WORKING ON MY DROPDOWN - Begin Return Section
     
   return (
     <div className="App">
       <Header />
-      <Dropdown breeds={allBreeds}/>  
-        <p>PURRRRLOLZ</p>
+        {
+          apiError 
+          ?<p>Sorry, please refresh and try again.</p>
+          : <Dropdown breeds={allBreeds} getCatData={getCatData}/> 
+        }
+        
+        <CatDisplay catBreed={catBreed}/>
+
         {/* Testing displays work fine assigned parts of the array ex: response.data[37].description for catText */}
-        <p>{catName}</p>
-        <img src = {catPicUrl} alt =""></img>
-        <p>{catText}</p>
+
+     
+
       <Footer />
     </div>
+
+
+
+
   );
 
   }
