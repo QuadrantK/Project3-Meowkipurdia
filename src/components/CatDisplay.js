@@ -3,10 +3,17 @@ const CatDisplay = ({catBreed} ) => {
         return(
         <>
             {name 
-                ? <div>
+                ? <div className="catDisplay">
                     <h2>{name}</h2>
-                    <img src={image.url} alt={`This is an image of a ${name}`}/>
-                    <p>{description}</p>
+                        <div className="catContainer">
+                            <div className="imgContainer">
+                                <img src={image.url} alt={`This is an image of a ${name}`}/>
+                            </div>
+                            <div className="textBox">
+                                <p>{description}</p>
+                            </div>
+                        </div>
+                    
                 </div>
                 :<div></div>
             }

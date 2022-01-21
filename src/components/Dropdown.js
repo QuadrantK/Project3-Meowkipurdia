@@ -27,7 +27,7 @@ console.log(breeds);
 return (
 <form onSubmit={(e) => {getCatData(e, userChoice)}}> 
    
-  <select onChange = {userInputHandler}> 
+  <select onChange = {userInputHandler} className="dropdown"> 
     <option value = "placeholder" key="placeholder">Please select a cat.</option>  
     {breeds.map((item, index) => {
         return (<option key={item.value} value={item.id}>{item.name}</option>)

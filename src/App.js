@@ -55,9 +55,6 @@ const [apiError, setApiError] = useState(false);
           headers: {
           'x-api-key': 'ed7e185c-1684-4408-938a-98f68dadc5c5',
           },
-          // params:{
-          //   api_key: 'ed7e185c-1684-4408-938a-98f68dadc5c5'
-          // }
         }).then((response) => {
         setAllBreeds(response.data)
           
@@ -79,7 +76,7 @@ const [apiError, setApiError] = useState(false);
   // WORKING ON MY DROPDOWN - Begin Return Section
     
   return (
-    <div className="App">
+    <div className="wrapper">
       <Header />
         {
           apiError 

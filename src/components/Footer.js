@@ -3,7 +3,7 @@
 const Footer = () => {
     return (
         <footer>
-            <p>Juno College © 2022</p>
+            <p>🐾  Juno College © 2022  🐾</p>
         </footer>
         )
     }
